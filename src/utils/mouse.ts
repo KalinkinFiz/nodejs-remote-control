@@ -86,4 +86,4 @@ class Mouse {
   };
 }
 
-export default new Mouse();
+export const handlerMouse = new Mouse();

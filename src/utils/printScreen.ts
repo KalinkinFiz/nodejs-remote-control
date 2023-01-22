@@ -41,4 +41,4 @@ class Screen {
   };
 }
 
-export default new Screen();
+export const handlerScreen = new Screen();

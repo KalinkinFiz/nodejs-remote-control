@@ -133,4 +133,4 @@ class Draw {
   };
 }
 
-export default new Draw();
+export const handlerDrawing = new Draw();

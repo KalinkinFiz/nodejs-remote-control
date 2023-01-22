@@ -1,8 +1,6 @@
 import * as stream from 'stream';
 
-import mouse from '../utils/mouse';
-import drawing from '../utils/drawing';
-import printScreen from '../utils/printScreen';
+import { handlerMouse, handlerDrawing, handlerScreen } from '../utils/index';
 
 class HandlerCommand {
   wsStream!: stream.Duplex;
@@ -21,17 +19,17 @@ class HandlerCommand {
 
       switch (command) {
         case 'mouse': {
-          mouse.handler(this.wsStream, action, value);
+          handlerMouse.handler(this.wsStream, action, value);
           break;
         }
 
         case 'draw': {
-          drawing.handler(this.wsStream, action, value);
+          handlerDrawing.handler(this.wsStream, action, value);
           break;
         }
 
         case 'prnt': {
-          printScreen.handler(this.wsStream);
+          handlerScreen.handler(this.wsStream);
           break;
         }
 
