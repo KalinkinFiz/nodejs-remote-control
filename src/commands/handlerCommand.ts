@@ -3,12 +3,12 @@ import * as stream from 'stream';
 import { handlerMouse, handlerDrawing, handlerScreen } from '../utils/index';
 
 class HandlerCommand {
-  wsStream!: stream.Duplex;
+  duplex!: stream.Duplex;
 
-  handler = async (wsStream: stream.Duplex): Promise<void> => {
-    this.wsStream = wsStream;
+  handler = async (duplex: stream.Duplex): Promise<void> => {
+    this.duplex = duplex;
 
-    this.wsStream.on('data', (data) => {
+    this.duplex.on('data', (data) => {
       process.stdout.write(`Recieved: ${data}\n`);
 
       const [command, action, ...value] = data
@@ -19,17 +19,17 @@ class HandlerCommand {
 
       switch (command) {
         case 'mouse': {
-          handlerMouse.handler(this.wsStream, action, value);
+          handlerMouse.handler(this.duplex, action, value);
           break;
         }
 
         case 'draw': {
-          handlerDrawing.handler(this.wsStream, action, value);
+          handlerDrawing.handler(this.duplex, action, value);
           break;
         }
 
         case 'prnt': {
-          handlerScreen.handler(this.wsStream);
+          handlerScreen.handler(this.duplex);
           break;
         }
 
@@ -41,4 +41,4 @@ class HandlerCommand {
   };
 }
 
-export default new HandlerCommand().handler;
+export const handlerCommand = new HandlerCommand().handler;

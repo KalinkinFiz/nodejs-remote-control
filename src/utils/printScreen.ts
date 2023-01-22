@@ -3,11 +3,11 @@ import Jimp from 'jimp';
 import * as stream from 'stream';
 
 class Screen {
-  wsStream!: stream.Duplex;
+  duplex!: stream.Duplex;
 
-  handler = async (wsStream: stream.Duplex) => {
+  handler = async (duplex: stream.Duplex) => {
     try {
-      this.wsStream = wsStream;
+      this.duplex = duplex;
 
       const { x, y } = await mouse.getPosition();
       const imageSize = 200;
@@ -31,7 +31,7 @@ class Screen {
       image.getBase64(
         Jimp.MIME_PNG,
         (_err: Error | null, imgString: string) => {
-          wsStream.write(`prnt_scrn ${imgString.split(',')[1]}\0`, 'utf-8');
+          duplex.write(`prnt_scrn ${imgString.split(',')[1]}\0`, 'utf-8');
         },
       );
       process.stdout.write('Done: prnt_scrn\n');

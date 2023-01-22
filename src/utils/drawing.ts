@@ -2,17 +2,13 @@ import { mouse, Button, Point, straightTo } from '@nut-tree/nut-js';
 import * as stream from 'stream';
 
 class Draw {
-  wsStream!: stream.Duplex;
+  duplex!: stream.Duplex;
 
   action!: string;
 
-  handler = (
-    wsStream: stream.Duplex,
-    action: string,
-    value: string[],
-  ): void => {
+  handler = (duplex: stream.Duplex, action: string, value: string[]): void => {
     try {
-      this.wsStream = wsStream;
+      this.duplex = duplex;
       this.action = action;
 
       switch (this.action) {
@@ -115,7 +111,7 @@ class Draw {
   send = async (value: string = ''): Promise<void> => {
     const command = `draw_${this.action} ${value}`;
 
-    this.wsStream.write(command, 'utf-8');
+    this.duplex.write(command, 'utf-8');
     process.stdout.write(`Done: ${command}\n`);
   };
 

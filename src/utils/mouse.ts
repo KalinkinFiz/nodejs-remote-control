@@ -2,13 +2,13 @@ import { mouse, down, up, left, right } from '@nut-tree/nut-js';
 import * as stream from 'stream';
 
 class Mouse {
-  wsStream!: stream.Duplex;
+  duplex!: stream.Duplex;
 
   action!: string;
 
-  handler = (ws: stream.Duplex, action: string, value: string[]) => {
+  handler = (duplex: stream.Duplex, action: string, value: string[]) => {
     try {
-      this.wsStream = ws;
+      this.duplex = duplex;
 
       this.action = action;
 
@@ -80,7 +80,7 @@ class Mouse {
   send = (value: string = ''): void => {
     const command = `mouse_${this.action}${value}`;
 
-    this.wsStream.write(command, 'utf-8');
+    this.duplex.write(command, 'utf-8');
 
     process.stdout.write(`Done: ${command}\n`);
   };
