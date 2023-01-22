@@ -2,6 +2,7 @@ import * as stream from 'stream';
 
 import mouse from '../utils/mouse';
 import drawing from '../utils/drawing';
+import printScreen from '../utils/printScreen';
 
 class HandlerCommand {
   wsStream!: stream.Duplex;
@@ -26,6 +27,11 @@ class HandlerCommand {
 
         case 'draw': {
           drawing.handler(this.wsStream, action, value);
+          break;
+        }
+
+        case 'prnt': {
+          printScreen.handler(this.wsStream);
           break;
         }
 
