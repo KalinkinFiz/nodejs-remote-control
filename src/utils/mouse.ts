@@ -19,22 +19,27 @@ class Mouse {
           this.up(number);
           break;
         }
+
         case 'right': {
           this.right(number);
           break;
         }
+
         case 'down': {
           this.down(number);
           break;
         }
+
         case 'left': {
           this.left(number);
           break;
         }
+
         case 'position': {
           this.position();
           break;
         }
+
         default: {
           break;
         }
